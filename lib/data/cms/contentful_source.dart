@@ -5,8 +5,9 @@ import '../event_source.dart';
 
 /// Contentful (hosted headless CMS), Content Delivery API.
 ///
-/// Content model: "Fair Event" with the API identifier fairEvent.
-/// Fields (field ID: type): title: Short text, orgID (or orgId): Short text,
+/// Content model: "Fair Event" with the API identifier codeCampusChallenge.
+/// The Contentful environment is master-orgfair.
+/// Fields (field ID: type): title: Short text, orgId: Short text,
 /// startsAt: Date and time, venue: Short text, description: Long text,
 /// cancelled: Boolean.
 ///
@@ -22,7 +23,7 @@ class ContentfulEventSource implements EventSource {
     this.client, {
     required this.spaceId,
     required this.token,
-    this.environment = 'master',
+    this.environment = 'master-orgfair',
   });
 
   final http.Client client;
@@ -41,7 +42,7 @@ class ContentfulEventSource implements EventSource {
     final uri = Uri.https(
       'cdn.contentful.com',
       '/spaces/$spaceId/environments/$environment/entries',
-      {'content_type': 'fairEvent', 'limit': '100'},
+      {'content_type': 'codeCampusChallenge', 'limit': '100'},
     );
     final headers = {'Authorization': 'Bearer $token'};
     // EXPLAIN E3: Open one of the other two CMS files and compare. Which

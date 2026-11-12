@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:org_fair/data/cms/contentful_source.dart';
 
-/// What the Content Delivery API sends for GET .../entries?content_type=fairEvent
+/// What the Content Delivery API sends for GET .../entries?content_type=codeCampusChallenge
 final contentfulAnswer = jsonEncode({
   'sys': {'type': 'Array'},
   'total': 3,
@@ -27,7 +27,11 @@ final contentfulAnswer = jsonEncode({
         'updatedAt': '2026-10-30T01:00:00.000Z',
         'revision': 1,
         'contentType': {
-          'sys': {'type': 'Link', 'linkType': 'ContentType', 'id': 'fairEvent'},
+          'sys': {
+            'type': 'Link',
+            'linkType': 'ContentType',
+            'id': 'codeCampusChallenge',
+          },
         },
         'locale': 'en-US',
       },
@@ -77,8 +81,11 @@ void main() {
     ).fetchEvents();
     expect(sent.method, 'GET');
     expect(sent.url.host, 'cdn.contentful.com');
-    expect(sent.url.path, '/spaces/abc123/environments/master/entries');
-    expect(sent.url.queryParameters['content_type'], 'fairEvent');
+    expect(
+      sent.url.path,
+      '/spaces/abc123/environments/master-orgfair/entries',
+    );
+    expect(sent.url.queryParameters['content_type'], 'codeCampusChallenge');
     expect(sent.url.queryParameters.containsKey('order'), isFalse);
     expect(sent.headers['Authorization'], 'Bearer delivery-token');
   });
