@@ -79,7 +79,7 @@ void main() {
     expect(sent.url.host, 'cdn.contentful.com');
     expect(sent.url.path, '/spaces/abc123/environments/master/entries');
     expect(sent.url.queryParameters['content_type'], 'fairEvent');
-    expect(sent.url.queryParameters['order'], 'fields.startsAt');
+    expect(sent.url.queryParameters.containsKey('order'), isFalse);
     expect(sent.headers['Authorization'], 'Bearer delivery-token');
   });
 
