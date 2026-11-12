@@ -6,7 +6,7 @@ import '../event_source.dart';
 /// Contentful (hosted headless CMS), Content Delivery API.
 ///
 /// Content model: "Fair Event" with the API identifier fairEvent.
-/// Fields (field ID: type): title: Short text, orgId: Short text,
+/// Fields (field ID: type): title: Short text, orgID (or orgId): Short text,
 /// startsAt: Date and time, venue: Short text, description: Long text,
 /// cancelled: Boolean.
 ///
@@ -61,7 +61,7 @@ class ContentfulEventSource implements EventSource {
 
   FairEvent _event(String id, Map<String, dynamic> fields) => FairEvent(
     id: id,
-    orgId: fields['orgId'] as String,
+    orgId: (fields['orgID'] ?? fields['orgId']) as String,
     title: fields['title'] as String,
     startsAt: DateTime.parse(fields['startsAt'] as String),
     venue: fields['venue'] as String,

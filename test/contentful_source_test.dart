@@ -33,7 +33,7 @@ final contentfulAnswer = jsonEncode({
       },
       'fields': {
         'title': 'Hour of Code',
-        'orgId': 'csc',
+        'orgID': 'csc',
         'startsAt': '2026-11-08T13:00+08:00',
         'venue': 'CICT Lab 2',
         'description': 'No experience needed.',
@@ -54,7 +54,7 @@ final contentfulAnswer = jsonEncode({
       'sys': {'id': '7OpenJam', 'type': 'Entry'},
       'fields': {
         'title': 'Open Jam',
-        'orgId': 'tunog',
+        'orgID': 'tunog',
         'startsAt': '2026-11-14T17:00+08:00',
         'venue': 'Quadrangle',
       },
