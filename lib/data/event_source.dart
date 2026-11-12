@@ -66,9 +66,28 @@ Object? decodeOrThrow(http.Response response, String cms) {
         '$cms could not find the events (404). '
         'Check the URL and the content type name.',
       );
+    case 400:
+      final detail = _errorMessage(response.body);
+      throw CmsException(
+        '$cms rejected the request (400). '
+        '${detail ?? 'Check the content type and field IDs.'}',
+      );
     case >= 500:
       throw CmsException('$cms is having problems ($code). Try again later.');
     default:
       throw CmsException('$cms answered $code.');
   }
+}
+
+String? _errorMessage(String body) {
+  try {
+    final decoded = jsonDecode(body);
+    if (decoded is Map<String, dynamic>) {
+      final message = decoded['message'];
+      if (message is String && message.isNotEmpty) return message;
+    }
+  } on FormatException {
+    return null;
+  }
+  return null;
 }

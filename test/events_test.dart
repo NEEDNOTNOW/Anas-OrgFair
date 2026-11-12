@@ -19,6 +19,7 @@ void main() {
     for (final (code, words) in [
       (401, 'token'),
       (403, 'token'),
+      (400, 'content type'),
       (404, 'content type'),
       (500, 'Try again later'),
       (503, 'Try again later'),
@@ -37,6 +38,22 @@ void main() {
         );
       });
     }
+
+    test('400 includes the CMS error message when available', () {
+      expect(
+        () => decodeOrThrow(
+          http.Response('{"message":"Unknown content type"}', 400),
+          'Contentful',
+        ),
+        throwsA(
+          isA<CmsException>().having(
+            (e) => e.message,
+            'message',
+            contains('Unknown content type'),
+          ),
+        ),
+      );
+    });
   });
 
   test('TODO 4 and 5: a failed load gives the saved copy', () async {
